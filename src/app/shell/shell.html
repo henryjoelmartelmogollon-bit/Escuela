@@ -1,0 +1,34 @@
+<mat-sidenav-container class="contenedor">
+  <mat-sidenav #sidenav [mode]="esMovil() ? 'over' : 'side'" [opened]="!esMovil()" class="menu-lateral">
+    <mat-nav-list>
+      @if (!esEstudiante) {
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="activo" (click)="esMovil() && sidenav.close()">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+      }
+      <a mat-list-item routerLink="/estudiantes" routerLinkActive="activo" (click)="esMovil() && sidenav.close()">
+        <mat-icon matListItemIcon>school</mat-icon>
+        <span matListItemTitle>{{ esEstudiante ? 'Mis notas' : 'Estudiantes' }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button aria-label="Abrir o cerrar el menú" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Escuela</span>
+      <span class="espacio"></span>
+      <span class="usuario">{{ email }}</span>
+      <button mat-icon-button aria-label="Cerrar sesión" (click)="salir()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="contenido">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

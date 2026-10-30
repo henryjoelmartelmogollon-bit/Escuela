@@ -1,0 +1,100 @@
+<h1 class="titulo">{{ esEstudiante ? 'Mis notas' : 'Estudiantes' }}</h1>
+
+@if (cargando()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+@if (!esEstudiante) {
+<div class="herramientas">
+  <mat-form-field appearance="outline" class="campo-busqueda">
+    <mat-label>Buscar por nombre</mat-label>
+    <input matInput [value]="busqueda()" (input)="buscar($event)" placeholder="el estudiante a buscar" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Curso</mat-label>
+    <mat-select [value]="cursoFiltro()" (selectionChange)="filtrarCurso($event.value)">
+      <mat-option value="">Todos</mat-option>
+      @for (c of cursos; track c) {
+        <mat-option [value]="c">{{ c }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button (click)="limpiarFiltros()">Limpiar filtros</button>
+
+  @if (esAdmin) {
+    <button mat-flat-button (click)="abrirFormulario()">
+      <mat-icon>add</mat-icon>
+      Nuevo estudiante
+    </button>
+  }
+</div>
+}
+
+<div class="tabla-contenedor">
+  <table mat-table [dataSource]="cargando() ? [] : visibles()" matSort (matSortChange)="cambiarOrden($event)" class="tabla">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let fila">{{ fila.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+      <td mat-cell *matCellDef="let fila">{{ fila.nombre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="curso">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Curso</th>
+      <td mat-cell *matCellDef="let fila">{{ fila.curso }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nota">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nota</th>
+      <td mat-cell *matCellDef="let fila">{{ fila.nota }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+      <td mat-cell *matCellDef="let fila">
+        <span class="estado" [class.ok]="fila.nota >= notaMinima" [class.mal]="fila.nota < notaMinima">
+          {{ fila.nota >= notaMinima ? 'Aprobado' : 'Desaprobado' }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let fila">
+        <button mat-icon-button aria-label="Editar estudiante" (click)="abrirFormulario(fila)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" aria-label="Eliminar estudiante" (click)="borrar(fila)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+  </table>
+</div>
+
+@if (filtrados().length === 0 && !cargando()) {
+  <p class="vacio">No hay estudiantes que coincidan con la búsqueda.</p>
+}
+
+<mat-paginator
+  [length]="cargando() ? 0 : filtrados().length"
+  [pageIndex]="pagina()"
+  [pageSize]="tamano()"
+  [pageSizeOptions]="[2, 5, 10]"
+  showFirstLastButtons
+  (page)="cambiarPagina($event)"
+  aria-label="Elegir página de estudiantes"
+></mat-paginator>
+
+@if (!cargando()) {
+  <p class="resumen">Mostrando {{ filtrados().length }} de {{ total() }} estudiantes</p>
+}

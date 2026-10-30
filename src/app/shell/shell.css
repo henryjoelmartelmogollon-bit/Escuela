@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.contenedor {
+  height: 100%;
+}
+
+.menu-lateral {
+  width: 240px;
+}
+
+.espacio {
+  flex: 1 1 auto;
+}
+
+.usuario {
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.contenido {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.activo {
+  background: var(--mat-sys-secondary-container);
+}
+
+@media (max-width: 600px) {
+  .usuario {
+    display: none;
+  }
+}

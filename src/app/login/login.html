@@ -1,0 +1,32 @@
+<div class="pantalla">
+  <mat-card class="tarjeta">
+    <mat-card-header>
+      <mat-card-title>Escuela</mat-card-title>
+      <mat-card-subtitle>Inicia sesión para continuar</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="formulario" (ngSubmit)="entrar()">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input matInput type="email" name="email" [(ngModel)]="email" required autocomplete="username" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+        </mat-form-field>
+
+        @if (error()) {
+          <p class="error">{{ error() }}</p>
+        }
+
+        <button mat-flat-button type="submit">Entrar</button>
+      </form>
+
+      <p class="ayuda">
+        Admin: admin&#64;escuela.com / admin123<br />
+        Usuario: user&#64;escuela.com / user123
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

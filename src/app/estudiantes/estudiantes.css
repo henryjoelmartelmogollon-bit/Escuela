@@ -1,0 +1,55 @@
+.titulo {
+  margin-bottom: 16px;
+}
+
+.herramientas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.campo-busqueda {
+  flex: 1;
+  min-width: 240px;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+}
+
+.estado {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.estado.ok {
+  background: #2e7d32;
+}
+
+.estado.mal {
+  background: #c62828;
+}
+
+.vacio {
+  text-align: center;
+  padding: 16px;
+  opacity: 0.7;
+}
+
+.resumen {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+.error {
+  color: #c62828;
+}

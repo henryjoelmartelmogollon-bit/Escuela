@@ -1,0 +1,68 @@
+<h1 class="titulo">Dashboard</h1>
+
+<div class="kpis">
+  <mat-card class="kpi">
+    <mat-card-content>
+      <mat-icon>groups</mat-icon>
+      <span class="etiqueta">Estudiantes</span>
+      <span class="numero">{{ total() }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="kpi">
+    <mat-card-content>
+      <mat-icon>trending_up</mat-icon>
+      <span class="etiqueta">Promedio general</span>
+      <span class="numero">{{ promedio().toFixed(1) }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="kpi">
+    <mat-card-content>
+      <mat-icon>check_circle</mat-icon>
+      <span class="etiqueta">Aprobados</span>
+      <span class="numero">{{ aprobados() }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="kpi">
+    <mat-card-content>
+      <mat-icon>cancel</mat-icon>
+      <span class="etiqueta">Desaprobados</span>
+      <span class="numero">{{ desaprobados() }}</span>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="fila-inferior">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Mejor nota</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (mejor(); as m) {
+        <p class="destacado">{{ m.nombre }}</p>
+        <p>Nota: {{ m.nota }}</p>
+        <p class="etiqueta">{{ m.curso }}</p>
+      } @else {
+        <p>Todavía no hay estudiantes.</p>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Estudiantes por curso</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @for (item of porCurso(); track item.curso) {
+        <div class="barra-fila">
+          <span class="barra-nombre">{{ item.curso }}</span>
+          <div class="barra-fondo">
+            <div class="barra-relleno" [style.width.%]="porcentaje(item.cantidad)"></div>
+          </div>
+          <span class="barra-cantidad">{{ item.cantidad }}</span>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<a mat-flat-button routerLink="/estudiantes" class="ir-estudiantes">Ver todos los estudiantes</a>

@@ -1,0 +1,75 @@
+.titulo {
+  margin-bottom: 16px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.kpi mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+.etiqueta {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.numero {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.destacado {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.fila-inferior {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.barra-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.barra-nombre {
+  width: 120px;
+  font-size: 14px;
+}
+
+.barra-fondo {
+  flex: 1;
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.25);
+  overflow: hidden;
+}
+
+.barra-relleno {
+  height: 100%;
+  background: var(--mat-sys-primary);
+}
+
+.barra-cantidad {
+  width: 24px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.ir-estudiantes {
+  margin-top: 8px;
+}
